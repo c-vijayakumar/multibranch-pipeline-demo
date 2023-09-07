@@ -66,6 +66,6 @@ pipeline {
 
 void sendStatus(String stage, String status) {
     withCredentials([usernamePassword(credentialsId: 'GITHUB-CREDS', passwordVariable: 'TOKEN', usernameVariable: 'USER-NAME')]) {
-        sh "curl -u USER-NAME:$TOKEN -X POST 'https://api.github.com/repos/c-vijayakumar/multibranch-pipeline-demo/statuses/$BRANCH_NAME' -H 'Accept: application/vnd.github.v3+json' -d '{\"state\": \"$status\",\"context\": \"$stage\", \"description\": \"Jenkins\", \"target_url\": \"$JENKINS_URL/job/$JOB_NAME/$BUILD_NUMBER/console\"}' "
+        sh "curl -u USER-NAME:$TOKEN -X POST 'https://api.github.com/repos/c-vijayakumar/multibranch-pipeline-demo/statuses/$GIT_COMMIT' -H 'Accept: application/vnd.github.v3+json' -d '{\"state\": \"$status\",\"context\": \"$stage\", \"description\": \"Jenkins\", \"target_url\": \"$JENKINS_URL/job/$JOB_NAME/$BUILD_NUMBER/console\"}' "
     }
 }
