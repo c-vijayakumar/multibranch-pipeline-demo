@@ -56,7 +56,7 @@ pipeline {
             }
              post {
                     success {
-                      sendStatus("Build Deploy Code","success")
+                      sendStatus("Build Deploy Code","failure")
                     }
                   }
         }
