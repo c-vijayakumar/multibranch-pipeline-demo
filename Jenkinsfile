@@ -65,10 +65,7 @@ pipeline {
 }
 
 void sendStatus(String stage, String status) {
-    container('curl') {
-        withCredentials([string(credentialsId: 'TOKEN-CREDS-NAME', variable: 'TOKEN')]) {
-            sh "curl -u USER-NAME:$TOKEN -X POST 'https://api.github.com/repos/kunchalavikram1427/spring-petclinic/statuses/$BRANCH_NAME' -H 'Accept: application/vnd.github.v3+json' -d '{\"state\": \"$status\",\"context\": \"$stage\", \"description\": \"Jenkins\", \"target_url\": \"$JENKINS_URL/job/$JOB_NAME/$BUILD_NUMBER/console\"}' "
-        }
+    withCredentials([usernamePassword(credentialsId: 'GITHUB-CREDS', passwordVariable: 'TOKEN', usernameVariable: 'USER-NAME')]) {
+        sh "curl -u USER-NAME:$TOKEN -X POST 'https://api.github.com/repos/c-vijayakumar/multibranch-pipeline-demo/statuses/$BRANCH_NAME' -H 'Accept: application/vnd.github.v3+json' -d '{\"state\": \"$status\",\"context\": \"$stage\", \"description\": \"Jenkins\", \"target_url\": \"$JENKINS_URL/job/$JOB_NAME/$BUILD_NUMBER/console\"}' "
     }
 }
-
